@@ -1,0 +1,72 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<h1 class="text-center my-3">Cuddalore City Development</h1>
+
+<h2 class="mb-3 text-center text-secondary">All Reports & Feedback</h2>
+
+<div class="row g-3">
+  {% for report in reports %}
+    <div class="col-12 col-md-6 col-lg-4">
+      <div class="card report-card shadow-sm">
+        <div class="card-body">
+          {% if report.photo %}
+            <img src="{{ report.photo.url }}" class="img-fluid rounded mb-2">
+          {% endif %}
+
+          <h5 class="card-title">{{ report.title }}</h5>
+          <p class="card-text">{{ report.description|truncatechars:100 }}</p>
+
+          <div class="d-flex justify-content-between align-items-center">
+            <span class="badge bg-info text-dark">
+              {{ report.get_status_display }}
+            </span>
+            <small class="text-muted">
+              {{ report.created_at|date:"d M Y H:i" }}
+            </small>
+          </div>
+
+          {% if report.is_pinned %}
+            <div class="mt-2">
+              <span class="badge bg-warning text-dark">📌 Pinned</span>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  {% empty %}
+    <div class="col-12">
+      <p class="text-center text-muted">
+        No reports have been submitted yet.
+      </p>
+    </div>
+  {% endfor %}
+</div>
+
+<hr class="my-5">
+
+<!-- ✅ FOUNDER SECTION -->
+<section class="founder-section text-center">
+  <div class="founder-card mx-auto">
+    <img src="{% static 'main/images/bala.jpg' %}"
+         alt="Founder"
+         class="img-fluid rounded-circle mb-3"
+         style="width:140px;height:140px;object-fit:cover;">
+
+    <h3>Balajimohan M</h3>
+    <p class="text-muted">
+      Founder – Cuddalore City Development
+    </p>
+<a href="https://www.instagram.com/___bxlx_xx___?igsh=ZGxtNmY3Y2x3MTI5"
+   target="_blank"
+   class="btn btn-outline-danger btn-sm mt-2">
+
+  <i class="fab fa-instagram"></i> Instagram
+</a>
+
+  </div>
+</section>
+
+{% endblock %}
